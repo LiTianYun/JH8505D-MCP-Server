@@ -1,0 +1,1320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>BatteryConsole</class>
+ <widget class="QWidget" name="BatteryConsole">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>980</width>
+    <height>1000</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>980</width>
+    <height>950</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>程控模拟电池控制台 · 24 通道 (PySide6)</string>
+  </property>
+  <layout class="QVBoxLayout" name="rootLayout" stretch="0,1,0,0">
+   <property name="spacing">
+    <number>10</number>
+   </property>
+   <property name="leftMargin">
+    <number>16</number>
+   </property>
+   <property name="topMargin">
+    <number>14</number>
+   </property>
+   <property name="rightMargin">
+    <number>16</number>
+   </property>
+   <property name="bottomMargin">
+    <number>14</number>
+   </property>
+   <item>
+    <widget class="GlassPanel" name="topPanel" native="true">
+     <property name="grade" stdset="0">
+      <string>mid</string>
+     </property>
+     <layout class="QVBoxLayout" name="topLayout">
+      <property name="spacing">
+       <number>6</number>
+      </property>
+      <property name="leftMargin">
+       <number>18</number>
+      </property>
+      <property name="topMargin">
+       <number>10</number>
+      </property>
+      <property name="rightMargin">
+       <number>18</number>
+      </property>
+      <property name="bottomMargin">
+       <number>10</number>
+      </property>
+      <item>
+       <layout class="QHBoxLayout" name="headLayout">
+        <item>
+         <widget class="QLabel" name="lblTitle">
+          <property name="text">
+           <string>程控模拟电池控制台</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="headGap1">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>12</width>
+            <height>10</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item alignment="Qt::AlignBottom">
+         <widget class="QLabel" name="lblSubtitle">
+          <property name="text">
+           <string>后端前端版 · 24 通道实时监控 · 多选控制</string>
+          </property>
+          <property name="kind" stdset="0">
+           <string>sub</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="headStretch">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>10</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item alignment="Qt::AlignBottom">
+         <widget class="QLabel" name="lbl_clients">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="kind" stdset="0">
+           <string>sub</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="backendLayout">
+        <property name="spacing">
+         <number>6</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="lblBackend">
+          <property name="text">
+           <string>后端</string>
+          </property>
+          <property name="kind" stdset="0">
+           <string>sub</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="ed_addr">
+          <property name="maximumSize">
+           <size>
+            <width>150</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>后端服务地址 HOST:PORT(可被环境变量 BATTERY_SERVER 覆盖)</string>
+          </property>
+          <property name="text">
+           <string>127.0.0.1:51920</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btn_svc">
+          <property name="text">
+           <string>连接</string>
+          </property>
+          <property name="kind" stdset="0">
+           <string>primary</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btn_backend">
+          <property name="text">
+           <string>启动后端</string>
+          </property>
+          <property name="toolTip">
+           <string>按后端运行状态自动切换:未运行时启动,运行中停止</string>
+          </property>
+          <property name="kind" stdset="0">
+           <string>success</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lbl_svc">
+          <property name="text">
+           <string>○ 未连接</string>
+          </property>
+          <property name="kind" stdset="0">
+           <string>sub</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="backendStretch">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>10</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="busLayout">
+        <property name="spacing">
+         <number>6</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="lblVendor">
+          <property name="text">
+           <string>Vendor</string>
+          </property>
+          <property name="kind" stdset="0">
+           <string>sub</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="cb_vendor">
+          <property name="maximumSize">
+           <size>
+            <width>96</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <item>
+           <property name="text">
+            <string>gcan</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>cx</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>zlg</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>zlg_eu</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lblChannel">
+          <property name="text">
+           <string>Channel</string>
+          </property>
+          <property name="kind" stdset="0">
+           <string>sub</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="ed_channel">
+          <property name="maximumSize">
+           <size>
+            <width>80</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <item>
+           <property name="text">
+            <string>CAN1</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>CAN2</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lblBaud">
+          <property name="text">
+           <string>波特率</string>
+          </property>
+          <property name="kind" stdset="0">
+           <string>sub</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="cb_baud">
+          <property name="maximumSize">
+           <size>
+            <width>92</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <item>
+           <property name="text">
+            <string>100 kHz</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>125 kHz</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>250 kHz</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>500 kHz</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>1 MHz</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btn_bus">
+          <property name="text">
+           <string>打开总线</string>
+          </property>
+          <property name="toolTip">
+           <string>按总线状态自动切换:未打开时打开,已打开时关闭</string>
+          </property>
+          <property name="kind" stdset="0">
+           <string>success</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lbl_bus">
+          <property name="text">
+           <string>○ 总线未打开</string>
+          </property>
+          <property name="kind" stdset="0">
+           <string>sub</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="busStretch">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>10</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="GlassPanel" name="cardsPanel" native="true">
+     <property name="grade" stdset="0">
+      <string>light</string>
+     </property>
+     <layout class="QVBoxLayout" name="cardsLayout" stretch="0,1">
+      <property name="spacing">
+       <number>8</number>
+      </property>
+      <property name="leftMargin">
+       <number>12</number>
+      </property>
+      <property name="topMargin">
+       <number>10</number>
+      </property>
+      <property name="rightMargin">
+       <number>12</number>
+      </property>
+      <property name="bottomMargin">
+       <number>12</number>
+      </property>
+      <item>
+       <layout class="QHBoxLayout" name="cardsHeadLayout">
+        <item>
+         <widget class="QLabel" name="lblCardsTitle">
+          <property name="text">
+           <string>24 通道实时监控</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="cardsGap1">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>10</width>
+            <height>10</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="lblCardsHint">
+          <property name="text">
+           <string>点击卡片多选 · 双击回填设定值</string>
+          </property>
+          <property name="kind" stdset="0">
+           <string>sub</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="cardsStretch">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>10</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <spacer name="cardsStretch">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>10</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QGridLayout" name="gridCards">
+        <property name="spacing">
+         <number>10</number>
+        </property>
+        <item row="0" column="0">
+         <widget class="ChannelCard" name="card_1" native="true">
+          <property name="ch" stdset="0">
+           <number>1</number>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="ChannelCard" name="card_2" native="true">
+          <property name="ch" stdset="0">
+           <number>2</number>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="ChannelCard" name="card_3" native="true">
+          <property name="ch" stdset="0">
+           <number>3</number>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="ChannelCard" name="card_4" native="true">
+          <property name="ch" stdset="0">
+           <number>4</number>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="4">
+         <widget class="ChannelCard" name="card_5" native="true">
+          <property name="ch" stdset="0">
+           <number>5</number>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="5">
+         <widget class="ChannelCard" name="card_6" native="true">
+          <property name="ch" stdset="0">
+           <number>6</number>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="ChannelCard" name="card_7" native="true">
+          <property name="ch" stdset="0">
+           <number>7</number>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="ChannelCard" name="card_8" native="true">
+          <property name="ch" stdset="0">
+           <number>8</number>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="ChannelCard" name="card_9" native="true">
+          <property name="ch" stdset="0">
+           <number>9</number>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="3">
+         <widget class="ChannelCard" name="card_10" native="true">
+          <property name="ch" stdset="0">
+           <number>10</number>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="4">
+         <widget class="ChannelCard" name="card_11" native="true">
+          <property name="ch" stdset="0">
+           <number>11</number>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="5">
+         <widget class="ChannelCard" name="card_12" native="true">
+          <property name="ch" stdset="0">
+           <number>12</number>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="ChannelCard" name="card_13" native="true">
+          <property name="ch" stdset="0">
+           <number>13</number>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="ChannelCard" name="card_14" native="true">
+          <property name="ch" stdset="0">
+           <number>14</number>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="ChannelCard" name="card_15" native="true">
+          <property name="ch" stdset="0">
+           <number>15</number>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="3">
+         <widget class="ChannelCard" name="card_16" native="true">
+          <property name="ch" stdset="0">
+           <number>16</number>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="4">
+         <widget class="ChannelCard" name="card_17" native="true">
+          <property name="ch" stdset="0">
+           <number>17</number>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="5">
+         <widget class="ChannelCard" name="card_18" native="true">
+          <property name="ch" stdset="0">
+           <number>18</number>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="ChannelCard" name="card_19" native="true">
+          <property name="ch" stdset="0">
+           <number>19</number>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="ChannelCard" name="card_20" native="true">
+          <property name="ch" stdset="0">
+           <number>20</number>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="2">
+         <widget class="ChannelCard" name="card_21" native="true">
+          <property name="ch" stdset="0">
+           <number>21</number>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="3">
+         <widget class="ChannelCard" name="card_22" native="true">
+          <property name="ch" stdset="0">
+           <number>22</number>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="4">
+         <widget class="ChannelCard" name="card_23" native="true">
+          <property name="ch" stdset="0">
+           <number>23</number>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="5">
+         <widget class="ChannelCard" name="card_24" native="true">
+          <property name="ch" stdset="0">
+           <number>24</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="GlassPanel" name="socPanel" native="true">
+     <property name="grade" stdset="0">
+      <string>mid</string>
+     </property>
+     <layout class="QVBoxLayout" name="socLayout">
+      <property name="spacing">
+       <number>6</number>
+      </property>
+      <property name="leftMargin">
+       <number>16</number>
+      </property>
+      <property name="topMargin">
+       <number>8</number>
+      </property>
+      <property name="rightMargin">
+       <number>16</number>
+      </property>
+      <property name="bottomMargin">
+       <number>8</number>
+      </property>
+      <item>
+       <layout class="QHBoxLayout" name="socParamRow">
+        <property name="spacing">
+         <number>8</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="lblSocTitle">
+          <property name="text">
+           <string>充放电模拟</string>
+          </property>
+          <property name="kind" stdset="0">
+           <string>feat</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lblChem">
+          <property name="text">
+           <string>曲线</string>
+          </property>
+          <property name="kind" stdset="0">
+           <string>sub</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="cb_chem">
+          <property name="maximumSize">
+           <size>
+            <width>130</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <item>
+           <property name="text">
+            <string>NCM 三元</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>LFP 磷酸铁锂</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lblCurSrc">
+          <property name="text">
+           <string>电流源</string>
+          </property>
+          <property name="kind" stdset="0">
+           <string>sub</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="cb_cur_src">
+          <property name="maximumSize">
+           <size>
+            <width>110</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <item>
+           <property name="text">
+            <string>模拟电流</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>实际电流</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lblCur">
+          <property name="text">
+           <string>电流(A)</string>
+          </property>
+          <property name="kind" stdset="0">
+           <string>sub</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="ed_soc_cur">
+          <property name="maximumSize">
+           <size>
+            <width>90</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>1.0</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lblCap">
+          <property name="text">
+           <string>容量(Ah)</string>
+          </property>
+          <property name="kind" stdset="0">
+           <string>sub</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="ed_soc_cap">
+          <property name="maximumSize">
+           <size>
+            <width>90</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>1.0</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lblSocVmax">
+          <property name="text">
+           <string>最高(V)</string>
+          </property>
+          <property name="kind" stdset="0">
+           <string>sub</string>
+          </property>
+          <property name="toolTip">
+           <string>100% SOC 对应的电压</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="ed_soc_vmax">
+          <property name="maximumSize">
+           <size>
+            <width>60</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>4.20</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lblSocVmin">
+          <property name="text">
+           <string>最低(V)</string>
+          </property>
+          <property name="kind" stdset="0">
+           <string>sub</string>
+          </property>
+          <property name="toolTip">
+           <string>0% SOC 对应的电压</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="ed_soc_vmin">
+          <property name="maximumSize">
+           <size>
+            <width>60</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>3.00</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="socBtnRow">
+        <property name="spacing">
+         <number>10</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="lblSocRange">
+          <property name="text">
+           <string>目标SOC起→止</string>
+          </property>
+          <property name="kind" stdset="0">
+           <string>sub</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="ed_soc_from">
+          <property name="maximumSize">
+           <size>
+            <width>100</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>0</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="ed_soc_to">
+          <property name="maximumSize">
+           <size>
+            <width>60</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>100</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btn_soc_est">
+          <property name="text">
+           <string>估起始SOC</string>
+          </property>
+          <property name="kind" stdset="0">
+           <string>ghost</string>
+          </property>
+         </widget>
+        </item>
+
+        <item>
+         <widget class="QPushButton" name="btn_soc_start">
+          <property name="text">
+           <string>开始充电</string>
+          </property>
+          <property name="kind" stdset="0">
+           <string>dark</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btn_soc_discharge">
+          <property name="text">
+           <string>开始放电</string>
+          </property>
+          <property name="kind" stdset="0">
+           <string>darkGhost</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btn_soc_stop">
+          <property name="text">
+           <string>停止</string>
+          </property>
+          <property name="kind" stdset="0">
+           <string>danger</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lblSocDir">
+          <property name="text">
+           <string></string>
+          </property>
+          <property name="kind" stdset="0">
+           <string>sub</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="socBtnStretch">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>10</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="bottomLayout" stretch="0,1">
+     <property name="spacing">
+      <number>10</number>
+     </property>
+     <item>
+      <widget class="FeaturedPanel" name="controlPanel" native="true">
+       <property name="minimumSize">
+        <size>
+         <width>430</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>430</width>
+         <height>258</height>
+        </size>
+       </property>
+       <layout class="QVBoxLayout" name="controlLayout">
+        <property name="spacing">
+         <number>8</number>
+        </property>
+        <property name="leftMargin">
+         <number>20</number>
+        </property>
+        <property name="topMargin">
+         <number>14</number>
+        </property>
+        <property name="rightMargin">
+         <number>20</number>
+        </property>
+        <property name="bottomMargin">
+         <number>14</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="lblControlTitle">
+          <property name="text">
+           <string>通道控制</string>
+          </property>
+          <property name="kind" stdset="0">
+           <string>feat</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lbl_sel">
+          <property name="text">
+           <string>未选中通道(点击上方卡片多选)</string>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+          <property name="kind" stdset="0">
+           <string>featSub</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="formLayout">
+          <property name="spacing">
+           <number>8</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="lblV">
+            <property name="text">
+             <string>电压 (V)</string>
+            </property>
+            <property name="kind" stdset="0">
+             <string>featSub</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="ed_volts">
+            <property name="maximumSize">
+             <size>
+              <width>90</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="toolTip">
+             <string>设定电压,单位 V,范围 0~32</string>
+            </property>
+            <property name="text">
+             <string>3.200</string>
+            </property>
+            <property name="kind" stdset="0">
+             <string>dark</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lblA">
+            <property name="text">
+             <string>电流 (A)</string>
+            </property>
+            <property name="kind" stdset="0">
+             <string>featSub</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="ed_amps">
+            <property name="maximumSize">
+             <size>
+              <width>90</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="toolTip">
+             <string>设定电流,单位 A,范围 0~10</string>
+            </property>
+            <property name="text">
+             <string>1.000</string>
+            </property>
+            <property name="kind" stdset="0">
+             <string>dark</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="formStretch">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>10</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btn_set">
+          <property name="text">
+           <string>设定电压 / 电流</string>
+          </property>
+          <property name="kind" stdset="0">
+           <string>dark</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="selLayout">
+          <property name="spacing">
+           <number>8</number>
+          </property>
+          <item>
+           <widget class="QPushButton" name="btn_sel_all">
+            <property name="text">
+             <string>全选</string>
+            </property>
+            <property name="kind" stdset="0">
+             <string>darkGhost</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btn_sel_invert">
+            <property name="text">
+             <string>反选</string>
+            </property>
+            <property name="kind" stdset="0">
+             <string>darkGhost</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btn_sel_clear">
+            <property name="text">
+             <string>清空</string>
+            </property>
+            <property name="kind" stdset="0">
+             <string>darkGhost</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="relayLayout">
+          <property name="spacing">
+           <number>8</number>
+          </property>
+          <item>
+           <widget class="QPushButton" name="btn_relay_on">
+            <property name="text">
+             <string>电池输出</string>
+            </property>
+            <property name="toolTip">
+             <string>继电器闭合(输出投入 / 接入负载)</string>
+            </property>
+            <property name="kind" stdset="0">
+             <string>success</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btn_relay_off">
+            <property name="text">
+             <string>电池关断</string>
+            </property>
+            <property name="toolTip">
+             <string>继电器断开(输出关断 / 脱离负载)</string>
+            </property>
+            <property name="kind" stdset="0">
+             <string>danger</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="GlassPanel" name="logPanel" native="true">
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>258</height>
+        </size>
+       </property>
+       <property name="grade" stdset="0">
+        <string>light</string>
+       </property>
+       <layout class="QVBoxLayout" name="logLayout">
+        <property name="spacing">
+         <number>4</number>
+        </property>
+        <property name="leftMargin">
+         <number>14</number>
+        </property>
+        <property name="topMargin">
+         <number>10</number>
+        </property>
+        <property name="rightMargin">
+         <number>14</number>
+        </property>
+        <property name="bottomMargin">
+         <number>10</number>
+        </property>
+        <item>
+         <widget class="QTabWidget" name="tabLogCurve">
+          <property name="currentIndex">
+           <number>0</number>
+          </property>
+          <widget class="QWidget" name="tabLog">
+           <attribute name="title">
+            <string>监控日志</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="tabLogLayout">
+            <property name="spacing">
+             <number>4</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>4</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <layout class="QHBoxLayout" name="logHeadLayout">
+              <item>
+               <widget class="QLabel" name="lblLogLegend">
+                <property name="text">
+                 <string>INFO 灰 · TX 蓝 · OK 绿 · WARN 橙 · ERR 红</string>
+                </property>
+                <property name="kind" stdset="0">
+                 <string>sub</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="logStretch">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>10</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="btn_clear_log">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>26</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>26</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>清空日志</string>
+                </property>
+                <property name="kind" stdset="0">
+                 <string>solid</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QPlainTextEdit" name="log_text">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>150</height>
+               </size>
+              </property>
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="tabCurve">
+           <attribute name="title">
+            <string>SOC 曲线</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="tabCurveLayout">
+            <property name="spacing">
+             <number>4</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>4</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="SocCurve" name="soc_curve" native="true"/>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>GlassPanel</class>
+   <extends>QWidget</extends>
+   <header>battery_gui_ui</header>
+  </customwidget>
+  <customwidget>
+   <class>FeaturedPanel</class>
+   <extends>QWidget</extends>
+   <header>battery_gui_ui</header>
+  </customwidget>
+  <customwidget>
+   <class>ChannelCard</class>
+   <extends>GlassPanel</extends>
+   <header>battery_gui_ui</header>
+  </customwidget>
+  <customwidget>
+   <class>SocCurve</class>
+   <extends>QWidget</extends>
+   <header>battery_gui_ui</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

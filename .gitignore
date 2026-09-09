@@ -1,0 +1,21 @@
+# Python 字节码
+__pycache__/
+*.py[cod]
+*$py.class
+
+# 工具产物
+.dsh-vision-router/
+
+# 厂商 CAN 驱动 dll + 内核库(体积大/第三方专有,不入版本控制)
+# 运行时需单独部署;见 README「接真实 CAN 设备」章节
+CAN_DLL/
+
+# 日志 / 临时文件
+*.log
+*.tmp
+*.bak
+*.swp
+
+# 版本控制工具
+.idea/
+.vscode/
