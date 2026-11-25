@@ -83,7 +83,7 @@ def default_channel() -> str:
 
 
 def default_scale() -> str:
-    """默认定标(来自 Can_Bridge.ini [CAN] Scale;缺省 mv_ma)。"""
+    """默认定标(来自 Can_Bridge.ini [CAN] Scale;缺失或非法直接报错,不回退)。"""
     from battery_vci import default_scale as _ini_scale
     return _ini_scale()
 

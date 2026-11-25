@@ -86,13 +86,23 @@ def read_can_ini() -> dict:
 
 
 def default_scale() -> str:
-    """默认定标(读 Can_Bridge.ini [CAN] Scale, 如 vx100 / mv_ma);缺省 mv_ma。
+    """默认定标(读 Can_Bridge.ini [CAN] Scale);读不到或非法直接报错,不回退。
 
-    实机若出现"读数偏 ×10"(如 3.1V 显示 31V),把 ini 的 Scale 改为 vx100 即可。
+    定标只有一个判据:设备把 raw 当什么单位解析。
+      mv_ma=按 mV    vx100=按 0.01V    vx10=按 0.1V    vx10000=上下行不对称(本机)
+    与固件版本无关,也不能用"读数偏 ×10 就改某一档"反推,选错就是整批偏差。
+    故意不设缺省:静默回退会让错误定标在整批下发里潜伏。
+
+    改 ini 后必须单通道闭环验证:设 3.10V -> 读回 3.10V。
     """
-    sc = (read_can_ini().get("scale") or "").strip()
     from battery_proto import SCALES
-    return sc if sc in SCALES else "mv_ma"
+    sc = (read_can_ini().get("scale") or "").strip()
+    if sc not in SCALES:
+        raise RuntimeError(
+            f"定标未配置或非法:[CAN] Scale={sc!r}(来自 {CAN_INI_PATH}),"
+            f"可选 {sorted(SCALES)}。不回退默认值,请补全配置后重启服务。"
+        )
+    return sc
 
 
 def default_vendor() -> str:

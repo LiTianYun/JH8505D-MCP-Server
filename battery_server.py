@@ -520,12 +520,12 @@ class BatteryServer:
             bitrate = int(req.get("bitrate", 100_000))
         except (TypeError, ValueError):
             return {"ok": False, "error": "波特率必须是整数"}
-        scale_name = str(req.get("scale") or req.get("scale_name") or default_scale())
         try:
+            scale_name = str(req.get("scale") or req.get("scale_name") or default_scale())
             scale = Scale(scale_name)
-        except ValueError as ex:
-            scale = Scale()
-            # 软兼容:非法定标回退默认
+        except (ValueError, RuntimeError) as ex:
+            # 不回退默认值:定标错了就是整批偏差,必须显式失败
+            return {"ok": False, "error": f"定标非法: {ex}"}
         if vendor == "sim":
             return {"ok": False,
                     "error": "仿真器(sim)已从可选总线移除,请选择真实 CAN 卡: " + ", ".join(available_vendors())}
